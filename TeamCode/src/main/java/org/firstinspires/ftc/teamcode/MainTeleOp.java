@@ -23,8 +23,8 @@ public class MainTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            Color.RGBToHSV((int) (Colour.red * SCALE_FACTOR));
-            (int) (Colour.green() * SCALE_FACTOR),
+//            Color.RGBToHSV((int) (Colour.red * SCALE_FACTOR));
+//            (int) (Colour.green() * SCALE_FACTOR),
 
         }
     }
