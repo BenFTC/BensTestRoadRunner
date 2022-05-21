@@ -8,7 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -18,11 +20,15 @@ import java.util.Locale;
 @TeleOp(name = "Sensor: REVColorDistance", group = "Sensor")
 public class SensorREVColorDistance extends LinearOpMode {
 
+    private Servo Flag = null;
+
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        Flag  = hardwareMap.get(Servo.class, "Flag");
 
         // get a reference to the color sensor.
         sensorColor = hardwareMap.get(ColorSensor.class, "Color");
@@ -68,10 +74,12 @@ public class SensorREVColorDistance extends LinearOpMode {
 
             if (sensorColor.red()>80 && sensorColor.green()>80 && sensorColor.blue()>80){
 
-                    telemetry.addLine("Dis for mee :) ");
+                    telemetry.addLine("OBTAINED BEST CODE NA");
+                    Flag.setPosition(1);
             }else
                 {
-                    telemetry.addLine("NOT FOR ME :( >-<");
+                    Flag.setPosition(.4);
+                    telemetry.addLine("EMPTY BAD CODE");
                 }
 
 
