@@ -29,6 +29,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.apache.commons.math3.analysis.function.Power;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
@@ -73,7 +74,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private TrajectoryFollower follower;
 
-    private DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    public DcMotorEx leftFront, leftRear, rightRear, rightFront;
     private List<DcMotorEx> motors;
 
     private BNO055IMU imu;
@@ -331,20 +332,43 @@ public class SampleMecanumDrive extends MecanumDrive {
         return new ProfileAccelerationConstraint(maxAccel);
     }
 
-    public void StrafeTillDuck(double Power,double Length)
+
+
+    public void StrafeTillDuck(double power,double Length)
     {
-        if (Range.getDistance(DistanceUnit.INCH) < Length)
+
+        PowerOn(power);
+        if (Range.getDistance(DistanceUnit.INCH)<Length)
         {
-            leftFront.setPower(0);
-            leftRear.setPower(0);
-            rightFront.setPower(0);
-            rightRear.setPower(0);
-        }else
-            {
-                leftFront.setPower(-Power);
-                leftRear.setPower(Power);
-                rightFront.setPower(Power);
-                rightRear.setPower(-Power);
-            }
+           Off();
+        }
+        return;
+
+
+    }
+
+    public void StrafeWithWhile(double power,double Length)
+    {
+
+        while (Range.getDistance(DistanceUnit.INCH)>Length)
+        {
+            PowerOn(power);
+        }
+        Off();
+    }
+    public void PowerOn(double power)
+    {
+        leftFront.setPower(-power);
+        leftRear.setPower(power);
+        rightRear.setPower(-power);
+        rightFront.setPower(power);
+    }
+
+    public void Off()
+    {
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+        rightFront.setPower(0);
     }
 }
