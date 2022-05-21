@@ -29,7 +29,7 @@ public class SensorTest extends LinearOpMode {
         Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) Range;
 
 
-        Trajectory Drive = drive.trajectoryBuilder(new Pose2d(0, 0, Math.toRadians(90)), false)
+        Trajectory Drive = drive.trajectoryBuilder(new Pose2d(0, 0, Math.toRadians(0)), false)
                 .forward(10)
                 .build();
 
@@ -39,9 +39,8 @@ public class SensorTest extends LinearOpMode {
             if (isStopRequested()) {
                 return;
             }
-            drive.StrafeWithWhile(.2, 14);
-
-
+            drive.StrafeWithWhile(.2, 20);
+            drive.followTrajectory(Drive);
             break;
 
         }
